@@ -6,12 +6,12 @@
   <title>GameApp - Recomendaciones</title>
   <link rel="stylesheet" href="style.css">
 
-
+  <!-- Configuración PWA para Celulares -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#2c3152">
   <meta name="mobile-web-app-capable" content="yes">
 
-  
+  <!-- CDN de Supabase en el navegador -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -75,8 +75,8 @@
 
     <section id="catalogo" class="catalog-section">
       <h2>Catálogo de la comunidad</h2>
-      <div id="contenedor-cards" class="grid-cards">
-        <p class="empty-message">Las recomendaciones aparecerán acá cuando conectemos el catálogo.</p>
+      <div id="grid-juegos" class="grid-cards">
+        <p class="empty-message">Cargando recomendaciones...</p>
       </div>
     </section>
   </main>
@@ -85,7 +85,7 @@
     <p>Proyecto demo de recomendaciones de videojuegos</p>
   </footer>
 
-
+  <!-- Cliente de Supabase ya configurado -->
   <script src="supabaseClient.js"></script>
   <script src="main.js"></script>
 </body>
