@@ -1,12 +1,8 @@
-// main.js - Práctico 4: guardar (INSERT) y mostrar (SELECT) las recomendaciones
-// "supabase" es el cliente ya conectado (lo crea supabaseClient.js, que se carga antes).
-
 const form = document.getElementById('form-juego');
 const grid = document.getElementById('grid-juegos');
 const mensaje = document.getElementById('mensaje');
 const boton = form.querySelector('button[type="submit"]');
 
-// Imagen de reemplazo si la URL de la portada no carga
 const IMG_RESPALDO =
   'data:image/svg+xml;utf8,' +
   encodeURIComponent(
@@ -18,10 +14,9 @@ const IMG_RESPALDO =
 
 function mostrarMensaje(texto, tipo) {
   mensaje.textContent = texto;
-  mensaje.className = 'mensaje ' + tipo; // "info", "exito" o "error"
+  mensaje.className = 'mensaje ' + tipo; 
 }
 
-// Mensaje dentro del catálogo (vacío / error)
 function mostrarEstadoCatalogo(texto) {
   grid.innerHTML = '';
   const p = document.createElement('p');
@@ -30,7 +25,6 @@ function mostrarEstadoCatalogo(texto) {
   grid.appendChild(p);
 }
 
-// Arma una tarjeta <article> con el DOM (textContent evita inyectar HTML)
 function crearTarjeta(juego) {
   const card = document.createElement('article');
   card.className = 'card-juego';
@@ -68,8 +62,6 @@ function crearTarjeta(juego) {
   card.append(img, cuerpo);
   return card;
 }
-
-// SELECT: trae los juegos (el más nuevo primero) y dibuja las tarjetas
 async function cargarJuegos() {
   const { data, error } = await supabase
     .from('juegos')
@@ -91,9 +83,8 @@ async function cargarJuegos() {
   data.forEach((juego) => grid.appendChild(crearTarjeta(juego)));
 }
 
-// INSERT: guarda el juego y vuelve a cargar el catálogo
 form.addEventListener('submit', async (e) => {
-  e.preventDefault(); // evita que la página se recargue
+  e.preventDefault();
 
   const nuevoJuego = {
     titulo: document.getElementById('titulo').value.trim(),
@@ -114,7 +105,7 @@ form.addEventListener('submit', async (e) => {
 
     mostrarMensaje('¡Recomendación publicada con éxito!', 'exito');
     form.reset();
-    await cargarJuegos(); // la tarjeta nueva aparece enseguida
+    await cargarJuegos(); 
   } catch (err) {
     console.error('Error al guardar:', err);
     mostrarMensaje('No se pudo guardar la recomendación: ' + err.message, 'error');
@@ -124,5 +115,4 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-// Al abrir la página, mostrar lo que ya está guardado
 cargarJuegos();
